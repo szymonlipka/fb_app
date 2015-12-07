@@ -3,22 +3,26 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
-  def index
-    @users = User.all
-  end
-
   # GET /users/1
   # GET /users/1.json
   def show
+      @user = User.find(params[:id])
   end
-
+  def add_user_to_group
+    if @user = User.find_by(username: params[:invite][:username])
+      if current_user.add_to_group(params[:invite][:group_id], @user.id)
+        flash[:notice] = "You've successfully added guy to your group"
+      else
+        flash[:alert] = "You can't add him"
+      end
+    else
+      flash[:alert] = "We didn't find this username"
+    end
+    redirect_to group_path(params[:invite][:group_id])
+  end
   # GET /users/new
   def new
     @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
   end
 
   # POST /users
@@ -28,7 +32,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        log_in @user
+        format.html { redirect_to dashboard_path(@user.id), notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -36,39 +41,11 @@ class UsersController < ApplicationController
       end
     end
   end
-
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :encrypted_password)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation)
     end
 end

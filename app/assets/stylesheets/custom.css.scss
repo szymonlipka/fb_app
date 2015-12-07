@@ -1,0 +1,54 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+$gray-medium-light: #eaeaea;
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 90%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+.create-group {
+  width: 200px;
+}
+.btn-success {
+  width: auto !important;
+}
+.group {
+  color: blue;
+  border: 1px solid #bbb;
+  width: 200px;
+  height: 20px;
+  background-color: black;
+}
+.group:hover {
+    background-color: red;
+}
+.column-left{ 
+  float: left; width: 33%; 
+}
+.column-right{ 
+  float: right; width: 33%; 
+}
+  .column-center{ display: inline-block; width: 33%; 
+}
+.list-group {
+  width: 90%;
+}
