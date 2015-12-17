@@ -1,0 +1,23 @@
+- @page_title = @group.name
+.column-center
+  = form_for(:post, :url => {:controller => 'posts', :action => 'create'}) do |f|
+    = f.text_area :content, class: 'form-control', placeholder: "Wpisz tu swój post"
+    = f.hidden_field :group_id, value: @group.id
+    = f.hidden_field :user_id, value: current_user.id
+    = f.submit :submit, value: 'Napisz post', class: "btn btn-success"
+  - @group.posts.reverse.each do |post|
+    %ul.list-group
+      %li.list-group-item
+        %b= post.user.username
+        = post.created_at
+      %li.list-group-item= post.content
+.column-left
+  %h3 List of users in group:
+  %ul.list-group
+    - @group.users.each do |user|
+      %li.list-group-item= user.username
+.column-right
+  = form_for(:invite, :url => {:controller => 'users', :action => 'add_user_to_group'}) do |f|
+    = f.text_field :username, class: 'form-control', placeholder: 'Wpisz username'
+    = f.hidden_field :group_id, value: @group.id
+    = f.submit :submit, value: 'Dodaj do grupy', class: "btn btn-success"

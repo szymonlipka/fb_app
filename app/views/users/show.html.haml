@@ -1,0 +1,23 @@
+- @page_title = "Dashboard"
+- if current_user != @user
+  %center
+    %h2
+      #{@user.username}'s Dashboard
+  - @user.groups.each do |group|
+    %li
+      %b= group.name
+- else
+  %center
+    %h2 Witaj na swojej tablicy
+  - if !@user.groups.empty?
+    %h5 Grupy do których należysz:
+    - @user.groups.each do |group|
+      %a{:href => "/group/#{group.id}"}
+        .btn.btn-warning= group.name
+  = form_for(:group, :url => {:controller => 'groups', :action => 'create'}) do |f|
+    = render 'shared/error_messages'
+    = f.text_field :name, class: 'form-control create-group', placeholder: 'Wpisz nazwę grupy'
+    = f.submit :submit, value: 'Załóż grupę', class: "btn btn-success"
+Twój adres email: #{@user.email} 
+%br
+Twój username: #{@user.username}

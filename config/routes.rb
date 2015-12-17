@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-  post '/groups' => 'groups#create'
+  post '/dashboard/:id' => 'groups#create'
   get '/group/:id' => 'groups#show', as: 'group'
   post '/posts' => 'posts#create'
   post '/add' => 'users#add_user_to_group'

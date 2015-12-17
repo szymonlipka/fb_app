@@ -1,0 +1,10 @@
+- if current_user
+  - @posts.each do |post|
+    %ul.list-group
+      %li.list-group-item
+        %b= post.user.username
+        = post.created_at
+      %li.list-group-item= post.content
+- else
+  %h2
+    %strong Welcome, sign up or log in to see more
