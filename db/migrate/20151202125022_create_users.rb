@@ -43,4 +43,3 @@ class CreateUsers < ActiveRecord::Migration
       add_index :users, :uid
     end
   end
-end
