@@ -1,6 +1,6 @@
-class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  
+class DashboardsController < ApplicationController
+  before_action :set_user, only: :show
+
   def show
     @user = User.find(params[:id])
     @group = Group.new

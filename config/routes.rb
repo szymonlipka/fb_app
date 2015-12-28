@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'users/sessions', omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { sessions: 'users/sessions', omniauth_callbacks: "users/omniauth_callbacks", :registrations => "users/registrations" }
 
   devise_scope :user do
     get "sign_in", to: "devise/sessions#new"
     get 'sign_up', to: "devise/registrations#new"
   end
-  get '/dashboard/:id' => 'users#show', as: 'dashboard'
+  resources :dashboards, only: :show
   post '/dashboard/:id' => 'groups#create'
 
   resources :groups do
