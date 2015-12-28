@@ -1,16 +1,20 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
+  devise_for :users, controllers: { sessions: 'users/sessions', omniauth_callbacks: "users/omniauth_callbacks" }
 
-  get '/signup' => 'users#new'
-  post '/signup' => 'users#create'
+  devise_scope :user do
+    get "sign_in", to: "devise/sessions#new"
+    get 'sign_up', to: "devise/registrations#new"
+  end
   get '/dashboard/:id' => 'users#show', as: 'dashboard'
-  get    'login'   => 'sessions#new'
-  post   'login'   => 'sessions#create'
-  delete 'logout'  => 'sessions#destroy'
   post '/dashboard/:id' => 'groups#create'
-  get '/group/:id' => 'groups#show', as: 'group'
-  post '/posts' => 'posts#create'
-  post '/add' => 'users#add_user_to_group'
+
+  resources :groups do
+    member do
+      patch :add_user
+    end
+    resources :posts, only: :create
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

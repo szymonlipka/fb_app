@@ -1,10 +1,25 @@
+- @page_title = 'Książka twarzy'
 - if current_user
-  - @posts.each do |post|
-    %ul.list-group
-      %li.list-group-item
-        %b= post.user.username
-        = post.created_at
-      %li.list-group-item= post.content
+  .column-left
+    - if !current_user.groups.empty? 
+      %h5
+        Grupy do których należysz:
+      - current_user.groups.each do |group|
+        %a{:href => "/group/#{group.id}", class: 'btn btn-warning'}
+          = group.name
+        %br
+  .column-center
+    - @posts.each do |post|
+      %ul.list-group
+        %li.list-group-item
+          %b= post.user.username
+          = post.created_at
+          %br
+          Group: 
+          = post.group.name
+        %li.list-group-item= post.content
+  .apple_pagination
+    = will_paginate @posts
 - else
   %h2
     %strong Welcome, sign up or log in to see more
