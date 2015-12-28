@@ -27,6 +27,5 @@
 .column-right
   - if (current_user && current_user.groups.include?(@group))
     = form_for([:add_user, @group]) do |f|
-      .form-control{ placeholder: 'Wpisz username' }
-        = text_field_tag :username
+      = text_field_tag :username, nil, placeholder: 'Wpisz username'
       = submit_tag :submit, value: 'Dodaj do grupy', class: "btn btn-success"
