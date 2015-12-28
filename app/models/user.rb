@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, 
          :validatable, :omniauthable, :omniauth_providers => [:facebook], 
          password_length: 6..128
+  attr_accessor :email, :username, :password, :password_confirmation
   has_many :memberships
   has_many :groups, through: :memberships
   has_many :posts
