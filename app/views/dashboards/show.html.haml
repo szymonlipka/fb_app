@@ -15,7 +15,7 @@
     - if !@user.groups.empty?
       %h5 Grupy do których należysz:
       - @user.groups.each do |group|
-        %a{:href => "/group/#{group.id}", class: 'btn btn-warning'}
+        %a{:href => "/groups/#{group.id}", class: 'btn btn-warning'}
           =group.name
         %br
     = form_for(:group, :url => {:controller => 'groups', :action => 'create'}) do |f|

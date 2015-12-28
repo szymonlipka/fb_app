@@ -26,6 +26,7 @@
       %li.list-group-item= user.username
 .column-right
   - if (current_user && current_user.groups.include?(@group))
-    = form_tag([:add_user, @group]) do
-      = text_field_tag :username, class: 'form-control', placeholder: 'Wpisz username'
+    = form_for([:add_user, @group]) do |f|
+      .form-control{ placeholder: 'Wpisz username' }
+        = text_field_tag :username
       = submit_tag :submit, value: 'Dodaj do grupy', class: "btn btn-success"
