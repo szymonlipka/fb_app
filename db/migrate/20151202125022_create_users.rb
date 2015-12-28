@@ -40,6 +40,6 @@ class CreateUsers < ActiveRecord::Migration
       add_index :provider
       add_index :email,                unique: true
       add_index :reset_password_token, unique: true
-      add_index :users, :uid
+      add_index :uid
     end
   end
