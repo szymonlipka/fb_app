@@ -23,29 +23,21 @@ class User < ActiveRecord::Base
       user.username = auth.info.name.split(' ')[0]
     end
   end
- 	def add_to_group(group_id, user_id)
- 		group = Group.find(group_id)
-  		if self.groups.include? group
-  			user = User.find(user_id)
-         	if !user.groups.include? group
-         		user.groups << group
-         		true
-         	else
-         		false
-         	end
-  		end
-  	end
+  def add_to_group(group_id)
+    group = Group.find(group_id)
+    !self.groups.include? group ? self.groups << group : false
+  end
   def list_posts
-  	list = []
-  	self.groups.each do |group|
-  		group.posts.each do |post|
-  			list << post
-  		end
-  	end
-  	self.posts.each do |post|
-  		list << post if !list.include? post
-  	end
-  	list.sort_by!(&:created_at)
-  	list.reverse
+    list = []
+    self.groups.each do |group|
+      group.posts.each do |post|
+        list << post
+      end
+    end
+    self.posts.each do |post|
+      list << post if !list.include? post
+    end
+    list.sort_by!(&:created_at)
+    list.reverse
   end
 end

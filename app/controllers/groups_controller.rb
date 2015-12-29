@@ -24,7 +24,7 @@ class GroupsController < ApplicationController
 
   def add_user
     if @user = User.find_by(username: params[:username])
-      if current_user.add_to_group(params[:id], @user.id)
+      if @user.add_to_group(params[:id])
         flash[:notice] = "You've successfully added guy to your group"
       else
         flash[:alert] = "You can't add him"
