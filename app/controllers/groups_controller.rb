@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-
+  before_action :member_of_group?, only: [:add_user]
   def create
     @group = Group.new(group_params)
     if @group.save
@@ -23,9 +23,8 @@ class GroupsController < ApplicationController
   end
 
   def add_user
-    # TODO rebuild
-    if @user = User.find_by(username: params[:invite][:username])
-      if current_user.add_to_group(params[:invite][:group_id], @user.id)
+    if @user = User.find_by(username: params[:username])
+      if current_user.add_to_group(params[:id], @user.id)
         flash[:notice] = "You've successfully added guy to your group"
       else
         flash[:alert] = "You can't add him"
@@ -33,10 +32,15 @@ class GroupsController < ApplicationController
     else
       flash[:alert] = "We didn't find this username"
     end
-    redirect_to group_path(params[:invite][:group_id])
+    redirect_to @group
   end
 
   private
+
+  def member_of_group?
+    @group = Group.find(params[:id])
+    render status: 401 unless current_user.groups.include?(@group)
+  end
 
   def group_params
     params.require(:group).permit(:name)

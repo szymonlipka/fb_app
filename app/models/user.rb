@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :groups, through: :memberships
   has_many :posts
+  validates :username, presence: true
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]

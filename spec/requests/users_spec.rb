@@ -10,7 +10,7 @@ RSpec.describe "Users", type: :request do
   end
   describe "GET /signup" do
   	it "works!" do
-  		get signup_path
+  		get '/sign_up'
   		expect(response).to have_http_status(200)
   	end
   end
