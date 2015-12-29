@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   end
   def add_to_group(group_id)
     group = Group.find(group_id)
-    !self.groups.include? group ? self.groups << group : false
+    (!self.groups.include? group) ? groups << group : false
   end
   def list_posts
     list = []
