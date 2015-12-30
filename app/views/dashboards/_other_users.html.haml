@@ -1,0 +1,8 @@
+- @page_title = "#{@user.username}'s Dashboard"
+%center
+  %h2
+    #{@user.username}'s Dashboard
+.column-left
+  - @user.groups.each do |group|
+    %li
+      %b= group.name

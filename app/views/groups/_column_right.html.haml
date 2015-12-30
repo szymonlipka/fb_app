@@ -1,0 +1,10 @@
+.column-right
+  - if (current_user && current_user.groups.include?(@group))
+    = form_for([:add_user, @group]) do |f|
+      = text_field_tag :username, nil, placeholder: 'Wpisz username'
+      = submit_tag :submit, value: 'Dodaj do grupy', class: "btn btn-success"
+  Pending invitations:
+  - @group.invitations.each do |invite|
+    %ul.list-group
+      %li.list-group-item
+        = invite.id

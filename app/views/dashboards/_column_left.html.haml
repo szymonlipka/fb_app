@@ -1,0 +1,17 @@
+.column-left
+  - if !@user.groups.empty?
+    %h5 Grupy do których należysz:
+    - @user.groups.each do |group|
+      %a{:href => "/groups/#{group.id}", class: 'btn btn-warning'}
+        =group.name
+      %br
+  = form_for(@group) do |f|
+    - if @group.errors.any?
+      #error_explanation
+        .alert.alert-danger
+          The group contains #{pluralize(@group.errors.count, "error")}.
+        %ul
+          - @group.errors.full_messages.each do |msg|
+            %li= msg
+    = f.text_field :name, class: 'form-control create-group', placeholder: 'Wpisz nazwę grupy'
+    = f.submit :submit, value: 'Załóż grupę', class: "btn btn-success"
