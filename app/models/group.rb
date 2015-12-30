@@ -5,16 +5,8 @@ class Group < ActiveRecord::Base
   has_many :posts
   has_many :invitations
 
-  def users_invited
-    list = []
-    invitations.each do |invite|
-      list << invite[:user_id]
-    end
-    list
-  end
-
   def already_invited?(user_id)
-    self.users_invited.include?(user_id)
+    invitations.exists?(user_id: user_id)
   end
 
 end
