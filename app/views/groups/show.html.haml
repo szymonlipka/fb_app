@@ -9,8 +9,9 @@
           %ul
             - @post.errors.full_messages.each do |msg|
               %li= msg
-      = f.text_area :content, class: 'form-control', placeholder: "Wpisz tu swój post"
-      = f.submit :submit, value: 'Napisz post', class: "btn btn-success"
+      .div
+        = f.text_area :content, placeholder: "Wpisz tu swój post"
+        = f.submit :submit, value: 'Napisz post', class: "btn btn-success"
   - @posts.each do |post|
     %ul.list-group
       %li.list-group-item
@@ -29,3 +30,8 @@
     = form_for([:add_user, @group]) do |f|
       = text_field_tag :username, nil, placeholder: 'Wpisz username'
       = submit_tag :submit, value: 'Dodaj do grupy', class: "btn btn-success"
+  Pending invitations:
+  - @group.invitations.each do |invite|
+    %ul.list-group
+      %li.list-group-item
+        = invite.id

@@ -19,12 +19,12 @@ describe "user" do
         click_on("Napisz post")
         expect(Group.last.posts.last.content).to eq('To jest post')
         expect(Group.last.posts.count).to eq(1)
-        print page.html
         user2 = User.create!(:username => 'example', :email => 'example@example.com', password: '123456')
         find('#username').set('example')
         click_button("Dodaj do grupy")
-        expect(Group.last.users.last).to eq(user2)
-        expect(Group.last.users.count).to eq(2)
+        expect(Invitation.last.inviter_username).to eq('lolz')
+        expect(Invitation.last.user).to eq(user2)
+        expect(Invitation.last.group).to eq(Group.last)
     end
     it "can't log in with bad data" do
         visit '/sign_in'

@@ -5,7 +5,12 @@ Rails.application.routes.draw do
     get "sign_in", to: "devise/sessions#new"
     get 'sign_up', to: "devise/registrations#new"
   end
-  resources :dashboards, only: :show
+  resources :dashboards, only: :show do
+    member do
+      get :accept_invitation, as: 'accept_invitation'
+      get :decline_invitation, as: 'decline_invitation'
+    end
+  end
   post '/dashboard/:id' => 'groups#create'
 
   resources :groups do

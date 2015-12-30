@@ -3,11 +3,12 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, 
-         :validatable, :omniauthable, :omniauth_providers => [:facebook], 
+         :validatable, :omniauthable, omniauth_providers: [:facebook], 
          password_length: 6..128
   has_many :memberships
   has_many :groups, through: :memberships
   has_many :posts
+  has_many :invitations
   validates :username, presence: true
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -20,21 +21,25 @@ class User < ActiveRecord::Base
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
-      user.username = auth.info.name.split(' ')[0]
+      user.username = auth.info.name
     end
   end
-  def add_to_group(group_id)
-    group = Group.find(group_id)
+  def accept_invite(invitation)
+    group = Group.find(invitation.group_id)
     (!self.groups.include? group) ? groups << group : false
+    invitation.delete
+  end
+  def decline_invite(invitation)
+    invitation.delete
   end
   def list_posts
     list = []
-    self.groups.each do |group|
+    groups.each do |group|
       group.posts.each do |post|
         list << post
       end
     end
-    self.posts.each do |post|
+    posts.each do |post|
       list << post if !list.include? post
     end
     list.sort_by!(&:created_at)

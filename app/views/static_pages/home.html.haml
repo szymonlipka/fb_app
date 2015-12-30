@@ -5,7 +5,7 @@
       %h5
         Grupy do których należysz:
       - current_user.groups.each do |group|
-        %a{:href => "/group/#{group.id}", class: 'btn btn-warning'}
+        %a{:href => "/groups/#{group.id}", class: 'btn btn-warning'}
           = group.name
         %br
   .column-center

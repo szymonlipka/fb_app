@@ -23,11 +23,14 @@ class GroupsController < ApplicationController
   end
 
   def add_user
-    if @user = User.find_by(username: params[:username])
-      if @user.add_to_group(params[:id])
-        flash[:notice] = "You've successfully added guy to your group"
+    if user = User.find_by(username: params[:username])
+      if (!@group.already_invited?(user.id) && !@group.users.include?(user))
+        invitation = user.invitations.build(inviter_username: current_user.username)
+        @group.invitations << invitation
+        invitation.save
+        flash[:notice] = "You've successfully invited guy to your group"
       else
-        flash[:alert] = "You can't add him"
+        flash[:alert] = "You can't invite him"
       end
     else
       flash[:alert] = "We didn't find this username"

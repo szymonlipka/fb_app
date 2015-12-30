@@ -6,6 +6,23 @@ $gray-medium-light: #eaeaea;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
 }
+textarea {
+  color: black;
+  width: 25%;
+  resize: none;
+  height: 100px;
+}
+.btn-success {
+  border-color: lightblue;
+}
+.btn-success:hover {
+  background-color: #0066FF;
+  border-color: #0066FF;
+}
+.centred-input {
+  width: 33%;
+  border-radius: 4px;
+}
 /* miscellaneous */
 .field {
   color: white;
@@ -22,9 +39,20 @@ input {
 }
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
+  border-radius: 4px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
   width: 90%;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
   @include box_sizing;
+}
+input[type="submit"] {
+  background-color: lightblue;
+}
+input[type="checkbox"] {
+  width: 20px;
+  height: 12px;
+  margin-bottom: 0px;
 }
 .actions {
   color: black;
@@ -34,7 +62,7 @@ input, textarea, select, .uneditable-input {
 
 }
 input {
-  height: auto !important;
+  height: auto;
 }
 .create-group {
   width: 200px;
@@ -61,6 +89,20 @@ header.navbar.navbar-fixed-top.navbar-inverse{
 }
 .btn-primary {
   width: 100%;
+}
+.btn-warning {
+  width: 50%;
+  background-color: #202020;
+  color: white;
+  border-color: #202020;
+  &:hover {
+    border-color: #202020;
+    background-color: #181818;
+  }
+  &:active {
+    border-color: #101010;
+    background-color: #101010;
+  }
 }
 .checkbox {
   margin-top: -10px;

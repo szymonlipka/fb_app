@@ -9,8 +9,6 @@
         %b= group.name
 - else
   - @page_title = "Dashboard"
-  %center
-    %h2 Witaj na swojej tablicy
   .column-left
     - if !@user.groups.empty?
       %h5 Grupy do których należysz:
@@ -18,7 +16,7 @@
         %a{:href => "/groups/#{group.id}", class: 'btn btn-warning'}
           =group.name
         %br
-    = form_for(:group, :url => {:controller => 'groups', :action => 'create'}) do |f|
+    = form_for(@group) do |f|
       - if @group.errors.any?
         #error_explanation
           .alert.alert-danger
@@ -28,7 +26,18 @@
               %li= msg
       = f.text_field :name, class: 'form-control create-group', placeholder: 'Wpisz nazwę grupy'
       = f.submit :submit, value: 'Załóż grupę', class: "btn btn-success"
-.column-right
+.column-center
   Twój adres email: #{@user.email} 
   %br
   Twój username: #{@user.username}
+.column-right
+  %h5
+    Twoje zaproszenia do grup:
+  - @user.invitations.each do |invite|
+    =invite.inviter_username
+    %br
+    %a{href: "/dashboards/2/accept_invitation?invite=#{invite.id}", method: 'post', class: 'btn btn-success' }
+      Accept
+    %a{href: "/dashboards/2/decline_invitation?invite=#{invite.id}", method: 'delete', class: 'btn btn-danger' }
+      Decline
+
