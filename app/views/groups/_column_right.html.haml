@@ -4,7 +4,7 @@
       = text_field_tag :username, nil, placeholder: 'Wpisz username'
       = submit_tag :submit, value: 'Dodaj do grupy', class: "btn btn-success"
   Pending invitations:
-  - @group.invitations.each do |invite|
+  - @group.users_invited.each do |user|
     %ul.list-group
       %li.list-group-item
-        = invite.id
+        = user.username

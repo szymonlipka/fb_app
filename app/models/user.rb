@@ -39,7 +39,6 @@ class User < ActiveRecord::Base
 
   def list_posts
     group_posts = Post.where(group_id: groups.pluck(:id)).where_values.reduce(:and)
-    my_posts = posts.where_values.reduce(:and) # Needed cause of posts without groups which are in my plans
     Post.where(Post.arel_table[:user_id].eq(id).or(group_posts)).order('created_at DESC')
   end
 
