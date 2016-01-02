@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20151230131531) do
     t.integer  "user_id"
     t.integer  "group_id"
     t.string   "inviter_username"
+    t.string   "group_name"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end

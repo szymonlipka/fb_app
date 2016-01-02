@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :groups, through: :memberships
   has_many :posts
   has_many :invitations
+  has_many :groups_pending, through: :invitations, source: :group
   validates :username, presence: true
 
   def self.new_with_session(params, session)

@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
   def add_user
     if user = User.find_by(username: params[:username])
       if (!@group.already_invited?(user.id) && !@group.users.include?(user))
-        invitation = user.invitations.build(inviter_username: current_user.username)
+        invitation = user.invitations.build(inviter_username: current_user.username, group_name: @group.name)
         @group.invitations << invitation
         invitation.save
         flash[:notice] = "You've successfully invited guy to your group"

@@ -2,9 +2,9 @@
   %h5
     Twoje zaproszenia do grup:
   - @user.invitations.each do |invite|
-    =invite.inviter_username
+    =invite.group_name
     %br
-    %a{href: "/dashboards/2/accept_invitation?invite=#{invite.id}", method: 'post', class: 'btn btn-success' }
+    %a{href: "/dashboards/2/accept_invitation?invite=#{invite.id}", method: 'patch', class: 'btn btn-success' }
       Accept
     %a{href: "/dashboards/2/decline_invitation?invite=#{invite.id}", method: 'delete', class: 'btn btn-danger' }
       Decline
