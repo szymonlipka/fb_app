@@ -98,11 +98,6 @@ header.navbar.navbar-fixed-top.navbar-inverse{
 .btn-primary {
   width: 100%;
 }
-.acti {
-  &:active {
-    color: black;
-  }
-}
 .btn-group {
   width: 50%;
   background-color: #202020;
@@ -117,6 +112,11 @@ header.navbar.navbar-fixed-top.navbar-inverse{
     color: white;
     border-color: #101010;
     background-color: #101010;
+  }
+  &:visited {
+    color: white;
+    border-color: #202020;
+    background-color: #202020;
   }
 }
 .checkbox {
