@@ -4,7 +4,7 @@ describe "user" do
   before(:each) do
     @user = User.create!(:username => 'lolz', :email => 'admin@example.com', password: '123456')  
   end
-  it 'can create group, add posts in the group and invite to his group' do
+  it 'can do all staff which you should do :D' do
     visit '/sign_in'
     fill_in 'Email', :with => 'admin@example.com'
     fill_in 'Password', :with => '123456'

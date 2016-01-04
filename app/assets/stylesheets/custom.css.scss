@@ -83,23 +83,38 @@ input {
   width: 90%;
   color: black;
 }
+/* bootstrap */
+.navbar-inverse .navbar-nav > li > a {
+  color: white;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: green;
+  color: white;
+}
 header.navbar.navbar-fixed-top.navbar-inverse{
-  background-color: grey;
+  background-color: lightgreen;
   color: black;
 }
 .btn-primary {
   width: 100%;
 }
-.btn-warning {
+.acti {
+  &:active {
+    color: black;
+  }
+}
+.btn-group {
   width: 50%;
   background-color: #202020;
   color: white;
   border-color: #202020;
   &:hover {
+    color: white;
     border-color: #202020;
     background-color: #181818;
   }
   &:active {
+    color: white;
     border-color: #101010;
     background-color: #101010;
   }

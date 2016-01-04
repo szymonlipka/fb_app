@@ -3,9 +3,10 @@
   .column-left
     - if !current_user.groups.empty? 
       %h5
-        Grupy do których należysz:
+        .acti
+          Grupy do których należysz:
       - current_user.groups.each do |group|
-        %a{:href => "/groups/#{group.id}", class: 'btn btn-warning'}
+        %a{:href => "/groups/#{group.id}", class: 'btn btn-group'}
           = group.name
         %br
   .column-center
