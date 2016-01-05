@@ -9,7 +9,15 @@
       .field
         = f.label :username
         %br/
-        = f.text_field :username, autofocus: true
+        = f.text_field :username
+      .field
+        = f.label :first_name
+        %br/
+        = f.text_field :first_name, autofocus: true
+      .field
+        = f.label :last_name
+        %br/
+        = f.text_field :last_name, autofocus: true
       .field
         = f.label :password
         - if @minimum_password_length

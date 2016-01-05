@@ -1,8 +1,15 @@
-- @page_title = "#{@user.username}'s Dashboard"
+- @page_title = "#{@user.first_name} #{@user.last_name}'s Dashboard"
 %center
   %h2
-    #{@user.username}'s Dashboard
+    #{@user.first_name} #{@user.last_name}'s Dashboard
 .column-left
   - @user.groups.each do |group|
     %li
       %b= group.name
+.column-right
+  - if current_user.friends.include?(@user)
+    =link_to "Remove this guy from friends", remove_friend_dashboard_path(friend_id: @user.id), class: "btn remove-friend", method: "delete"
+  - elsif @user.already_invited?(current_user.id)
+    You've invited him to you friends
+  - else
+    =link_to "Add Friend", invite_friend_dashboard_path(friend_id: @user.id), class: "btn add-friend", method: "post"

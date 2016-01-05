@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe "user" do
   before(:each) do
-    @user = User.create!(:username => 'lolz', :email => 'admin@example.com', password: '123456')  
+    @user = User.create!(first_name: 'Szymon', last_name: 'Lipka', :username => 'lolz', :email => 'admin@example.com', password: '123456')  
   end
   it 'can do all staff which you should do :D' do
     visit '/sign_in'
@@ -19,7 +19,7 @@ describe "user" do
     click_on("Napisz post")
     expect(Group.last.posts.last.content).to eq('To jest post')
     expect(Group.last.posts.count).to eq(1)
-    user2 = User.create!(:username => 'example', :email => 'example@example.com', password: '123456')
+    user2 = User.create!(first_name: 'Szymon', last_name: 'Lipka', :username => 'example', :email => 'example@example.com', password: '123456')
     find('#username').set('example')
     click_button("Dodaj do grupy")
     expect(Invitation.last.inviter_username).to eq('lolz')
@@ -48,6 +48,8 @@ describe "user" do
     visit '/sign_up'
     fill_in 'user_email', :with => 'asdasd'
     fill_in 'user_username', with: 'blabla'
+    fill_in 'user_first_name', with: 'Szymon'
+    fill_in 'user_last_name', with: 'Lipka'
     fill_in 'user_password', with: '123'
     fill_in 'user_password_confirmation', with: '213'
     click_button 'Sign up'
@@ -59,6 +61,8 @@ describe "user" do
     visit '/sign_up'
     fill_in 'user_email', :with => 'asdasd@wq.pl'
     fill_in 'user_username', with: 'blabla'
+    fill_in 'user_first_name', with: 'Szymon'
+    fill_in 'user_last_name', with: 'Lipka'
     fill_in 'user_password', with: '123456'
     fill_in 'user_password_confirmation', with: '123456'
     click_button 'Sign up'

@@ -13,11 +13,12 @@
     - @posts.each do |post|
       %ul.list-group
         %li.list-group-item
-          %b= post.user.username
+          %b #{post.user.first_name} #{post.user.last_name}
           = post.created_at
-          %br
-          Grupa: 
-          = post.group.name
+          -if post.group
+            %br
+            Grupa: 
+            = post.group.name
         %li.list-group-item= post.content
   .apple_pagination
     = will_paginate @posts

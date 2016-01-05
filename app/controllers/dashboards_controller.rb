@@ -6,17 +6,42 @@ class DashboardsController < ApplicationController
     @group = Group.new
   end
 
+  def invite_friend
+    if user = User.find(params[:friend_id])
+      if !current_user.friends.include?(user) && !user.already_invited?(user.id)
+        invitation = user.invitations.build(inviter_username: current_user.username, friend_id: current_user.id)
+        invitation.save
+        flash[:notice] = "You've successfully invited guy to your friends"
+      else
+        flash[:alert] = "You can't invite him"
+      end
+    else
+      flash[:alert] = "We didn't find this id"
+    end
+    redirect_to dashboard_path(user.id)
+  end
+
+  def remove_friend
+    user = User.find(params[:friend_id])
+    if friendship = Friendship.find_by(friend_id: params[:friend_id], user_id: current_user.id)
+      friendship.destroy
+    elsif friendship = Friendship.find_by(user_id: params[:friend_id], friend_id: current_user.id)
+      friendship.destroy
+    end
+    redirect_to dashboard_path(user.id)
+  end
+
   def accept_invitation
     @invitation = Invitation.find(params[:invite])
     current_user.accept_invite(@invitation)
-    flash[:notice] = "You've successfully joined group"
+    flash[:notice] = "You've successfully accepted invitation"
     redirect_to dashboard_path(current_user.id)
   end
 
   def decline_invitation
     @invitation = Invitation.find(params[:invite])
     current_user.decline_invite(@invitation)
-    flash[:notice] = "You've successfully rejected joining group"
+    flash[:notice] = "You've successfully declined invitaion"
     redirect_to dashboard_path(current_user.id)
   end
 

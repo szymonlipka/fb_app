@@ -1,10 +1,6 @@
 .column-right
-  %h5
-    Twoje zaproszenia do grup:
-  - @user.invitations.each do |invite|
-    =invite.group_name
-    %br
-    %a{href: "/dashboards/2/accept_invitation?invite=#{invite.id}", method: 'patch', class: 'btn btn-success' }
-      Accept
-    %a{href: "/dashboards/2/decline_invitation?invite=#{invite.id}", method: 'delete', class: 'btn btn-danger' }
-      Decline
+  Znajomi:
+  - (@user.friends + @user.inverse_friends).each do |friend|
+    %ul.list-group
+      %li.list-group-item
+        =link_to friend.first_name + " " + friend.last_name, dashboard_path(friend.id), class: 'friend'

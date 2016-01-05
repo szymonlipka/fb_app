@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     member do
       get :accept_invitation, as: 'accept_invitation'
       get :decline_invitation, as: 'decline_invitation'
+      post :invite_friend
+      delete :remove_friend
     end
   end
   post '/dashboard/:id' => 'groups#create'

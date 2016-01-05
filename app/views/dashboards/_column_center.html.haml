@@ -1,4 +1,10 @@
 .column-center
-  Twój adres email: #{@user.email} 
-  %br
-  Twój username: #{@user.username}
+  %h5
+    Zaproszenia:
+  - @user.invitations.reverse.each do |invite|
+    =invite.group_name
+    %br
+    %a{href: "/dashboards/2/accept_invitation?invite=#{invite.id}", method: 'post', class: 'btn btn-success' }
+      Accept
+    %a{href: "/dashboards/2/decline_invitation?invite=#{invite.id}", method: 'delete', class: 'btn btn-danger' }
+      Decline

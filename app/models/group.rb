@@ -7,7 +7,7 @@ class Group < ActiveRecord::Base
   has_many :users_invited, through: :invitations, source: :user
 
   def already_invited?(user_id)
-    invitations.exists?(user_id: user_id)
+    invitations.exists?(group_id: id, user_id: user_id)
   end
 
 end

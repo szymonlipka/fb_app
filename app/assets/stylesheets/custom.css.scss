@@ -6,6 +6,9 @@ $gray-medium-light: #eaeaea;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
 }
+a.friend {
+  color: black;
+}
 textarea {
   color: black;
   width: 25%;
@@ -86,13 +89,22 @@ input {
 /* bootstrap */
 .navbar-inverse .navbar-nav > li > a {
   color: white;
+  background-color: #3399CC;
+  &:active {
+    background-color: #33CCFF;
+    color: black;
+  }
+  &:hover {
+    background-color: #33CCFF;
+    color: black;
+  }
 }
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
   background-color: green;
   color: white;
 }
-header.navbar.navbar-fixed-top.navbar-inverse{
-  background-color: lightgreen;
+header.navbar.navbar-fixed-top.navbar-inverse {
+  background-color: #3399FF;
   color: black;
 }
 .btn-primary {
@@ -105,7 +117,7 @@ header.navbar.navbar-fixed-top.navbar-inverse{
   border-color: #202020;
   &:hover {
     color: white;
-    border-color: #202020;
+    border-color: #101010;
     background-color: #181818;
   }
   &:active {
