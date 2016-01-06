@@ -3,13 +3,23 @@
   .column-left
     - if !current_user.groups.empty? 
       %h5
-        .acti
-          Grupy do których należysz:
+        Grupy do których należysz:
       - current_user.groups.each do |group|
         %a{:href => "/groups/#{group.id}", class: 'btn btn-group'}
           = group.name
         %br
   .column-center
+    = form_for(@post) do |f|
+      - if @post.errors.any?
+        #error_explanation
+          .alert.alert-danger.post_error
+            The post contains #{pluralize(@post.errors.count, "error")}.
+          %ul
+            - @post.errors.full_messages.each do |msg|
+              %li= msg
+      .div
+        = f.text_area :content, placeholder: "Wpisz tu swój post"
+        = f.submit :submit, value: 'Napisz post', class: "btn btn-success"
     - @posts.each do |post|
       %ul.list-group
         %li.list-group-item

@@ -11,5 +11,9 @@ RSpec.describe Devise, type: :routing do
       expect(:get => "/sign_in").to route_to("devise/sessions#new")
     end
 
+    it "routes to sessions#destroy" do
+      expect(:get => "/sign_out").to route_to("devise/sessions#destroy")
+    end
+
   end
 end

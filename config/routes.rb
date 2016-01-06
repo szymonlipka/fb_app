@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       delete :remove_friend
     end
   end
+  resources :posts, only: :create
   post '/dashboard/:id' => 'groups#create'
 
   resources :groups do

@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  before_action :member_of_group?, only: [:add_user]
+  before_action :member_of_group?, only: [:add_user, :show]
   def create
     @group = Group.new(group_params)
     if @group.save

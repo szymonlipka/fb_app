@@ -4,10 +4,11 @@
     #{@user.first_name} #{@user.last_name}'s Dashboard
 .column-left
   - @user.groups.each do |group|
-    %li
-      %b= group.name
+    %a{:href => "/groups/#{group.id}", class: 'btn btn-group'}
+      =group.name
+    %br
 .column-right
-  - if current_user.friends.include?(@user)
+  - if current_user.friends.include?(@user) || current_user.inverse_friends.include?(@user)
     =link_to "Remove this guy from friends", remove_friend_dashboard_path(friend_id: @user.id), class: "btn remove-friend", method: "delete"
   - elsif @user.already_invited?(current_user.id)
     You've invited him to you friends

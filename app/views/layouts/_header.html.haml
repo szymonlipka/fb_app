@@ -7,10 +7,10 @@
           - if signed_in?
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                Account
+                =current_user.name
                 %b.caret
               %ul.dropdown-menu
-                %li= link_to "Profile", dashboard_path(current_user.id)
+                %li= link_to "Dashboard", dashboard_path(current_user.id)
                 %li= link_to "Settings", edit_user_registration_path
                 %li.divider
                 %li
