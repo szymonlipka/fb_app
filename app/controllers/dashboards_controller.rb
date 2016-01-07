@@ -23,11 +23,8 @@ class DashboardsController < ApplicationController
 
   def remove_friend
     user = User.find(params[:friend_id])
-    if friendship = Friendship.find_by(friend_id: params[:friend_id], user_id: current_user.id)
-      friendship.destroy
-    elsif friendship = Friendship.find_by(user_id: params[:friend_id], friend_id: current_user.id)
-      friendship.destroy
-    end
+    current_user.friends.destroy(user)
+    user.friends.destroy(current_user)
     redirect_to dashboard_path(user.id)
   end
 

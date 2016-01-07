@@ -1,11 +1,13 @@
 require 'rails_helper'
 RSpec.describe User do
+
   describe 'validates' do
       it { should validate_presence_of(:email)}
       it { should validate_presence_of(:password)}
       it { should validate_presence_of(:first_name)}
       it { should validate_presence_of(:last_name)}
     end
+
   describe 'associations' do
       it { should have_many :groups }
       it { should have_many :memberships }
@@ -16,6 +18,7 @@ RSpec.describe User do
       it { should have_many :inverse_friendships }
       it { should have_many :inverse_friends }
   end
+
   describe 'db columns' do
     it { should have_db_column :username }
     it { should have_db_column :email }
@@ -25,10 +28,12 @@ RSpec.describe User do
     it { should have_db_column :provider }
     it { should have_db_column :uid }
   end
+
   describe 'invitations' do
     let(:user) {User.create!(first_name: 'Szymon', last_name: 'Lipka', :username => 'test', :email => 'test@t.t', :password => '123456')}
     let(:group) {Group.create!(:name => 'Grupa')}
-    it 'accept' do
+
+    it 'accept group invite' do
       @invitation = user.invitations.build(inviter_username: 'Jalowiec')
       group.invitations << @invitation
       expect(@invitation).to eq(Invitation.last)
@@ -36,6 +41,18 @@ RSpec.describe User do
       expect(user.groups.last).to eq(group)
       expect(Invitation.last).not_to eq(@invitation)
     end
+
+    it 'accept friend invite' do
+      friend = User.create(first_name: 'Szymon', last_name: 'Lipka', :username => 'test', :email => 'test@t.tt', :password => '123456')
+      @invitation = user.invitations.build(inviter_username: 'Jalowiec', friend_id: friend.id)
+      @invitation.save
+      expect(@invitation).to eq(Invitation.last)
+      user.accept_invite(@invitation)
+      expect(user.friends.last).to eq(friend)
+      expect(friend.friends.last).to eq(user)
+      expect(Invitation.last).not_to eq(@invitation)
+    end
+
     it 'decline' do
       @invitation = user.invitations.build(inviter_username: 'Jalowiec')
       group.invitations << @invitation
@@ -43,6 +60,7 @@ RSpec.describe User do
       expect(Invitation.last).not_to eq(@invitation)
       expect(user.groups.last).not_to eq(group)
     end
+
   end
   # describe 'initialization' do
   #   let(:user) {User.create!(:username => 'test', :email => 'test@t.t', :password => '123456')}

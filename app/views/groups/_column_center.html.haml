@@ -11,11 +11,4 @@
       .div
         = f.text_area :content, placeholder: "Wpisz tu swój post"
         = f.submit :submit, value: 'Napisz post', class: "btn btn-success"
-  - @posts.each do |post|
-    %ul.list-group
-      %li.list-group-item
-        %b #{post.user.first_name} #{post.user.last_name}
-        = post.created_at
-      %li.list-group-item= post.content
-  .apple_pagination
-    = will_paginate @posts 
+  =render partial: 'posts_list', locals: {posts: @posts}

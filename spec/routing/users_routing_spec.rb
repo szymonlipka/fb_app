@@ -12,7 +12,7 @@ RSpec.describe Devise, type: :routing do
     end
 
     it "routes to sessions#destroy" do
-      expect(:get => "/sign_out").to route_to("devise/sessions#destroy")
+      expect(:delete => "/users/sign_out").to route_to("users/sessions#destroy")
     end
 
   end

@@ -2,11 +2,10 @@
   %h5
     Zaproszenia:
   - @user.invitations.reverse.each do |invite|
-    %a{href: "/dashboards/2/accept_invitation?invite=#{invite.id}", method: 'post', class: 'btn btn-success' }
-      Accept
-    %a{href: "/dashboards/2/decline_invitation?invite=#{invite.id}", method: 'delete', class: 'btn btn-danger' }
-      Decline
-    =invite.group_name
     - unless invite.group_name
       #{invite.inviter_username} wants to add you to his friends
+    =invite.group_name
+    %div
+      =button_to "Accept", accept_invitation_dashboard_path(invite: invite.id), method: :post, class: 'btn btn-success' 
+      =button_to "Decline", decline_invitation_dashboard_path(invite: invite.id), method: :delete, class: 'btn btn-decline'
     %br

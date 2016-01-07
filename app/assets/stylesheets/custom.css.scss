@@ -6,9 +6,6 @@ $gray-medium-light: #eaeaea;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
 }
-a.friend {
-  color: black;
-}
 textarea {
   color: black;
   width: 25%;
@@ -17,6 +14,19 @@ textarea {
 }
 .btn-success {
   border-color: lightblue;
+  &:hover {
+    background-color: #0066FF;
+    border-color: #0066FF;
+  }
+}
+.btn-decline {
+  color: white;
+  background-color: #680000 !important;
+  width: auto !important;
+  &:hover {
+    background-color: #800000 !important;
+    color: black;
+  }
 }
 .btn-success:hover {
   background-color: #0066FF;
@@ -73,14 +83,16 @@ input {
 .btn-success {
   width: auto !important;
 }
-.column-left{ 
+.column-left { 
   float: left; width: 33%; 
 }
 .column-right{ 
   float: right; width: 33%; 
 }
-.column-center{ 
-  display: inline-block; width: 33%; 
+.column-center{
+  align-self: center;
+  display: inline-block; 
+  width: 33%; 
 }
 .list-group {
   width: 90%;

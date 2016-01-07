@@ -9,7 +9,7 @@
           = group.name
         %br
   .column-center
-    = form_for(@post) do |f|
+    = form_for(@post, remote: true) do |f|
       - if @post.errors.any?
         #error_explanation
           .alert.alert-danger.post_error
@@ -17,21 +17,10 @@
           %ul
             - @post.errors.full_messages.each do |msg|
               %li= msg
-      .div
+      %div
         = f.text_area :content, placeholder: "Wpisz tu swój post"
-        = f.submit :submit, value: 'Napisz post', class: "btn btn-success"
-    - @posts.each do |post|
-      %ul.list-group
-        %li.list-group-item
-          %b #{post.user.first_name} #{post.user.last_name}
-          = post.created_at
-          -if post.group
-            %br
-            Grupa: 
-            = post.group.name
-        %li.list-group-item= post.content
-  .apple_pagination
-    = will_paginate @posts
+      #ajax
+        =render partial: 'posts_list', locals: {posts: @posts}
 - else
   %h2
     %strong Welcome, sign up or log in to see more

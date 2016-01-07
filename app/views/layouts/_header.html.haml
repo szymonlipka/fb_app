@@ -3,10 +3,10 @@
     .container
       %nav
         %ul.nav.navbar-nav.navbar-right
-          %li= link_to "Home", root_path
+          %li.slide= link_to "Home", root_path
           - if signed_in?
             %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              %a.dropdown-toggle.slide{"data-toggle" => "dropdown", :href => "#"}
                 =current_user.name
                 %b.caret
               %ul.dropdown-menu
@@ -16,5 +16,5 @@
                 %li
                   = link_to "Log out", destroy_user_session_path, method: "delete"
           - else
-            %li= link_to "Log in", sign_in_path
-            %li= link_to "Register", sign_up_path
+            %li.slide= link_to "Log in", sign_in_path
+            %li.slide= link_to "Register", sign_up_path

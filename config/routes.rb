@@ -7,27 +7,27 @@ Rails.application.routes.draw do
   end
   resources :dashboards, only: :show do
     member do
-      get :accept_invitation, as: 'accept_invitation'
-      get :decline_invitation, as: 'decline_invitation'
+      post :accept_invitation
+      delete :decline_invitation
       post :invite_friend
       delete :remove_friend
     end
   end
-  resources :posts, only: :create
+  resources :posts, only: [:index, :create]
   post '/dashboard/:id' => 'groups#create'
 
   resources :groups do
     member do
       patch :add_user
     end
-    resources :posts, only: :create
+    resources :posts, only: [:create, :index], controller: 'groups/posts'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'static_pages#home'
+  root 'posts#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

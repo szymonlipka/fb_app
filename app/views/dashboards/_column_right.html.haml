@@ -1,6 +1,6 @@
 .column-right
   Znajomi:
-  - (@user.friends + @user.inverse_friends).each do |friend|
+  - @user.friends.each do |friend|
     %ul.list-group
       %li.list-group-item
         =link_to friend.first_name + " " + friend.last_name, dashboard_path(friend.id), class: 'friend'

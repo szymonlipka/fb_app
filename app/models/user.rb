@@ -18,6 +18,11 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { maximum: 20 }
   validates :last_name, presence: true, length: { maximum: 20 }
 
+  def friends
+    super
+    inverse_friends
+  end
+
   def name
     first_name + " " + last_name
   end
@@ -55,7 +60,10 @@ class User < ActiveRecord::Base
       groups << group unless groups.include?(group)
     else
       friend = User.find(invitation.friend_id)
-      friends << friend unless friends.include?(friend)
+      unless friends.include?(friend)
+        friends << friend
+        friend.inverse_friends << self 
+      end
     end
     invitation.destroy
   end
