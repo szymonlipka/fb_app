@@ -1,10 +1,18 @@
 .column-right
   - if (current_user && current_user.groups.include?(@group))
-    = form_for([:add_user, @group]) do |f|
-      = text_field_tag :username, nil, placeholder: 'Wpisz username'
+    .adding-users
+      Your friends who you can invite:
+      %br
+      - current_user.friends.each do |friend|
+        - unless @group.already_invited?(friend.id)
+          = link_to friend.name, '#', class: 'btn btn-add-friend', id: friend.id
+          %br
+      = form_for([:add_user, @group]) do |f|
+        = text_field_tag :username, nil, readonly: true
+        = hidden_field_tag :ids, nil, readonly: true
       = submit_tag :submit, value: 'Dodaj do grupy', class: "btn btn-success"
   Pending invitations:
   - @group.users_invited.each do |user|
     %ul.list-group
       %li.list-group-item
-        = user.username
+        = user.name
