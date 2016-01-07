@@ -1,6 +1,7 @@
 .column-right
   - if (current_user && current_user.groups.include?(@group))
-    .adding-users
+    %p Add more friends to invite them to this group
+    .adding-users{style: 'display:none;'}
       Your friends who you can invite:
       %br
       - current_user.friends.each do |friend|
