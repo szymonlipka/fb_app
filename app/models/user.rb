@@ -18,6 +18,12 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { maximum: 20 }
   validates :last_name, presence: true, length: { maximum: 20 }
 
+  def list_posts
+    group_posts = Post.where(group_id: groups.pluck(:id)).where_values.reduce(:and)
+    friend_posts = Post.where(user_id: friends.pluck(:id), group_id: nil).where_values.reduce(:and)
+    Post.where(Post.arel_table[:user_id].eq(id).or(group_posts).or(friend_posts)).order('created_at DESC')
+  end
+
   def friends
     super
     inverse_friends
@@ -27,11 +33,6 @@ class User < ActiveRecord::Base
     first_name + " " + last_name
   end
 
-  def capi
-    first_name.capitalize!
-    last_name.capitalize!
-  end
-  
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
@@ -72,11 +73,11 @@ class User < ActiveRecord::Base
     invitation.destroy
   end
 
-  def list_posts
-    group_posts = Post.where(group_id: groups.pluck(:id)).where_values.reduce(:and)
-    friend_posts = Post.where(user_id: friends.pluck(:id), group_id: nil).where_values.reduce(:and)
-    inverse_friend_posts = Post.where(user_id: inverse_friends.pluck(:id), group_id: nil).where_values.reduce(:and)
-    Post.where(Post.arel_table[:user_id].eq(id).or(group_posts).or(friend_posts).or(inverse_friend_posts)).order('created_at DESC')
-  end
+  private
 
+  def capi
+    first_name.capitalize!
+    last_name.capitalize!
+  end
+  
 end
