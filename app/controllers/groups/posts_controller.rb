@@ -5,11 +5,14 @@ class Groups::PostsController < GroupsController
   def create
     @post = current_user.posts.build(post_params)
     @post.group = @group
-    if @post.save
-      redirect_to @group
-    else
-      @posts = @group.posts.order('created_at DESC').paginate(page: params[:page], per_page: 10)
-      render 'groups/show'
+    respond_to do |format|
+      if @post.save
+        @posts = @group.posts.order('created_at DESC').paginate(page: params[:page], per_page: 10)
+        format.js
+      else
+        @posts = @group.posts.order('created_at DESC').paginate(page: params[:page], per_page: 10)
+        format.js
+      end
     end
   end
 

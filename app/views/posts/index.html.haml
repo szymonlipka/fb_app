@@ -10,13 +10,8 @@
         %br
   .column-center
     = form_for(@post, remote: true) do |f|
-      - if @post.errors.any?
-        #error_explanation
-          .alert.alert-danger.post_error
-            The post contains #{pluralize(@post.errors.count, "error")}.
-          %ul
-            - @post.errors.full_messages.each do |msg|
-              %li= msg
+      #errors
+        =render partial: 'errors'
       %div
         = f.text_area :content, placeholder: "Wpisz tu swój post"
       #ajax

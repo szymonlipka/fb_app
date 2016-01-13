@@ -1,14 +1,9 @@
 .column-center
   - if (current_user && current_user.groups.include?(@group))
-    = form_for([@group, @post]) do |f|
-      - if @post.errors.any?
-        #error_explanation
-          .alert.alert-danger.post_error
-            The post contains #{pluralize(@post.errors.count, "error")}.
-          %ul
-            - @post.errors.full_messages.each do |msg|
-              %li= msg
+    = form_for([@group, @post], remote: true) do |f|
+      #errors
+        =render partial: 'errors'
       .div
         = f.text_area :content, placeholder: "Wpisz tu swój post"
-        = f.submit :submit, value: 'Napisz post', class: "btn btn-success"
-  =render partial: 'posts_list', locals: {posts: @posts}
+  #posts
+    =render partial: 'posts_list', locals: {posts: @posts}

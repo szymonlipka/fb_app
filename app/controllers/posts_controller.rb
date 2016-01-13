@@ -14,7 +14,7 @@ class PostsController < ApplicationController
         format.js
       else
         @posts = current_user.list_posts.paginate(:page => params[:page], :per_page => 30)
-        format.render @post.errors
+        format.js
       end
     end
   end

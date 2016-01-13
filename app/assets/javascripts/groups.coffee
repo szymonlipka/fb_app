@@ -9,5 +9,5 @@ $(document).ready ->
         $(this).hide()
       else
         $('#username').val($('#username').val() + ', ' + $(this).text())
-        $('#ids').val($('#ids').val() + ' ' + $(this).attr('id'))
+        $('#ids').val($('#ids').val() + ',' + $(this).attr('id'))
         $(this).hide()

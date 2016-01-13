@@ -11,7 +11,7 @@
       = form_for([:add_user, @group]) do |f|
         = text_field_tag :username, nil, readonly: true
         = hidden_field_tag :ids, nil, readonly: true
-      = submit_tag :submit, value: 'Dodaj do grupy', class: "btn btn-success"
+        = submit_tag :submit, value: 'Dodaj do grupy', class: "btn btn-success"
   Pending invitations:
   - @group.users_invited.each do |user|
     %ul.list-group

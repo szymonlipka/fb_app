@@ -23,17 +23,16 @@ class GroupsController < ApplicationController
   end
 
   def add_user
-    params[:ids].split(" ").each do |id|
-      user = User.find(id.to_i)
-        if (!@group.already_invited?(user.id) && !@group.users.include?(user))
-          invitation = user.invitations.build(inviter_username: current_user.username, group_name: @group.name)
-          @group.invitations << invitation
-          invitation.save
-          flash[:notice] = "You've successfully invited guys to your group"
-        else
-          flash[:alert] = "You can't invite #{user.name}"
-        end
+    User.find(params[:ids].split(",")).each do |user|
+      if (!@group.already_invited?(user.id) && !@group.users.include?(user))
+        invitation = user.invitations.build(inviter_username: current_user.username, group_name: @group.name)
+        @group.invitations << invitation
+        invitation.save
+        flash[:notice] = "You've successfully invited guys to your group"
+      else
+        flash[:alert] = "You can't invite #{user.name}"
       end
+    end
     redirect_to @group
   end
 
