@@ -6,6 +6,6 @@
       #{invite.inviter_username} wants to add you to his friends
     =invite.group_name
     %div
-      =button_to "Accept", accept_invitation_dashboard_path(invite: invite.id), method: :post, class: 'btn btn-success' 
-      =button_to "Decline", decline_invitation_dashboard_path(invite: invite.id), method: :delete, class: 'btn btn-decline'
+      =button_to "Accept", accept_invitation_dashboard_path(invite: invite.id), class: 'btn btn-success'
+      =button_to "Decline", decline_invitation_dashboard_path(invite: invite.id), class: 'btn btn-decline', method: :delete
     %br

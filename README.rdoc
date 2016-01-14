@@ -2,3 +2,11 @@
 
 https://ancient-hamlet-7094.herokuapp.com
 
+== Setup
+
+1. git clone https://github.com/Jalowiec/fb_app.git
+2. bundle install
+3. bundle exec rake db:seed
+4. bundle exec rake db:migrate
+5. enjoy
+OMNIAUTH won't work on local server, it's set up on Heroku.
