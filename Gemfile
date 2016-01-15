@@ -41,6 +41,7 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
 end
 group :test do
+  gem "selenium-webdriver"
 	gem "capybara"
 end
 group :development do
