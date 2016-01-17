@@ -2,13 +2,13 @@ class InvitationsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_privilages
   
-  def accept_invitation
+  def accept
     current_user.accept_invite(@invitation)
     flash[:notice] = "You've successfully accepted invitation"
     redirect_to dashboard_path(current_user.id)
   end
 
-  def decline_invitation
+  def decline
     current_user.decline_invite(@invitation)
     flash[:notice] = "You've successfully declined invitaion"
     redirect_to dashboard_path(current_user.id)

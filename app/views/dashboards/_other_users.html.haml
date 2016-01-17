@@ -9,8 +9,8 @@
     %br
 .column-right
   - if current_user.friends.include?(@user) || current_user.inverse_friends.include?(@user)
-    =button_to "Remove this guy from friends", remove_friend_dashboard_path(friend_id: @user.id), class: "btn remove-friend", method: :delete
+    =button_to "Remove this guy from friends", remove_dashboard_path(friend_id: @user.id), class: "btn remove-friend", method: :delete
   - elsif @user.already_invited?(current_user.id)
     You've invited him to you friends
   - else
-    =button_to "Add Friend", invite_friend_dashboard_path(friend_id: @user.id), class: "btn add-friend"
+    =button_to "Add Friend", invite_dashboard_path(friend_id: @user.id), class: "btn add-friend"

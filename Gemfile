@@ -42,7 +42,7 @@ group :development, :test do
 end
 group :test do
   gem "selenium-webdriver"
-	gem "capybara"
+  gem "capybara"
 end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

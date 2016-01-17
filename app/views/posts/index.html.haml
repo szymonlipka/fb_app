@@ -11,11 +11,11 @@
   .column-center
     = form_for(@post, remote: true) do |f|
       #errors
-        =render partial: 'errors'
+        = render partial: 'errors'
       %div
         = f.text_area :content, placeholder: "Wpisz tu swój post"
       #ajax
-        =render partial: 'posts_list', locals: {posts: @posts}
+        = render partial: 'posts_list', locals: {posts: @posts}
 - else
   %h2
     %strong Welcome, sign up or log in to see more

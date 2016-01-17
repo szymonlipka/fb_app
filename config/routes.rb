@@ -7,10 +7,10 @@ Rails.application.routes.draw do
   end
   resources :dashboards, only: :show do
     member do
-      post :accept_invitation, controller: 'invitations'
-      delete :decline_invitation, controller: 'invitations'
-      post :invite_friend, controller: 'friends'
-      delete :remove_friend, controller: 'friends'
+      post :accept, controller: 'invitations'
+      delete :decline, controller: 'invitations'
+      post :invite, controller: 'friends'
+      delete :remove, controller: 'friends'
     end
   end
   resources :posts, only: [:index, :create]

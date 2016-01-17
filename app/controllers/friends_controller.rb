@@ -1,7 +1,7 @@
 class FriendsController < ApplicationController
   before_action :authenticate_user!
   
-  def invite_friend
+  def invite
     user = User.find(params[:friend_id])
     if !current_user.friends.include?(user) && !user.already_invited?(user.id)
       invitation = user.invitations.build(inviter_username: current_user.username, friend_id: current_user.id)
@@ -13,7 +13,7 @@ class FriendsController < ApplicationController
     redirect_to dashboard_path(user.id)
   end
 
-  def remove_friend
+  def remove
     user = User.find(params[:friend_id])
     current_user.friends.destroy(user)
     user.friends.destroy(current_user)

@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :invitations
   has_many :groups_pending, through: :invitations, source: :group
   has_many :friendships
-  has_many :friends, :through => :friendships
+  has_many :friends, through: :friendships
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
   has_many :inverse_friends, through: :inverse_friendships, source: :user
   validates :first_name, presence: true, length: { maximum: 20 }
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   def list_posts
     group_posts = Post.where(group_id: groups.pluck(:id)).where_values.reduce(:and)
     friend_posts = Post.where(user_id: friends.pluck(:id), group_id: nil).where_values.reduce(:and)
-    Post.where(Post.arel_table[:user_id].eq(id).or(group_posts).or(friend_posts)).order('created_at DESC')
+    Post.where(Post.arel_table[:user_id].eq(id).or(group_posts).or(friend_posts)).order('created_at DESC').includes(:user, :group)
   end
 
   def friends
