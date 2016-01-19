@@ -9,7 +9,7 @@ default: &default
   encoding: utf8
   pool: 5
   username: postgres
-  password: 493k17
+  password: ENV["DB_PASS"]
 
 development:
   <<: *default
