@@ -4,7 +4,7 @@ describe "user" do
   before(:each) do
     @user = User.create!(first_name: 'Szymon', last_name: 'Lipka', :username => 'lolz', :email => 'admin@example.com', password: '123456')  
   end
-  it 'can do all staff which you should do :D' do
+  it 'should be able to create groups and and friends' do
     visit '/sign_in'
     fill_in 'Email', :with => 'admin@example.com'
     fill_in 'Password', :with => '123456'
@@ -14,34 +14,12 @@ describe "user" do
     click_on("Załóż grupę")
     expect(@user.groups.last.name).to eq('Project Runway')
     expect(Group.last.name).to eq('Project Runway')
-    # fill_in 'post_content', with: 'To jest post'
-    # find('#post_content').native.send_keys(:return)
-    # expect(Group.last.posts.last.content).to eq('To jest post')
-    # expect(Group.last.posts.count).to eq(1)
     user2 = User.create!(first_name: 'Szymon', last_name: 'Lipka', :username => 'example', :email => 'example@example.com', password: '123456')
     visit dashboard_path(user2.id)
     click_button("Add Friend")
     user2.accept_invite(Invitation.last)
     expect(@user.friends.last).to eq(user2)
     expect(user2.friends.last).to eq(@user)
-    # visit group_path(Group.last)
-    # click_on(user2.name)
-    # print page.html
-    # click_on("Dodaj do grupy")
-    # expect(Invitation.last.inviter_username).to eq('lolz')
-    # expect(Invitation.last.group_name).to eq('Project Runway')
-    # expect(Invitation.last.user).to eq(user2)
-    # expect(Invitation.last.group).to eq(Group.last)
-    # expect(user2.groups.last).to eq(nil)
-    # visit '/'
-    # click_on("Log out")
-    # visit '/sign_in'
-    # fill_in 'Email', :with => 'example@example.com'
-    # fill_in 'Password', :with => '123456'
-    # click_button 'Log in'
-    # visit dashboard_path(user2.id)
-    # click_on 'Accept'
-    # expect(user2.groups.last.name).to eq('Project Runway')
   end
   it "can't log in with bad data" do
     visit '/sign_in'

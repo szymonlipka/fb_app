@@ -1,12 +1,11 @@
 - @page_title = 'Książka twarzy'
 - if current_user
   .column-left
-    - if !current_user.groups.empty? 
+    - unless current_user.groups.empty? 
       %h5
         Grupy do których należysz:
       - current_user.groups.each do |group|
-        %a{:href => "/groups/#{group.id}", class: 'btn btn-group'}
-          = group.name
+        = link_to group.name, group_path(group.id), class: 'btn btn-group'
         %br
   .column-center
     = form_for(@post, remote: true) do |f|

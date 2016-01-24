@@ -1,5 +1,5 @@
 $(document).ready ->
-  if $('.btn-add-friend').size() isnt 0
+  unless $('.btn-add-friend').size() is 0
     $('.adding-users').show()
     $('p').hide()
     $('.btn-add-friend').click ->
