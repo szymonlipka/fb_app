@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :posts, only: [:index, :create]
   post '/dashboard/:id' => 'groups#create'
 
-  resources :groups, only: :show do
+  resources :groups, only: [:show, :create] do
     member do
       patch :add_user
     end
