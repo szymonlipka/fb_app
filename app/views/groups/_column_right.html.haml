@@ -1,5 +1,5 @@
 .column-right
-  - if (current_user && current_user.groups.include?(@group))
+  - if current_user && current_user.groups.include?(@group)
     %p Add more friends to invite them to this group
     .adding-users{style: 'display:none;'}
       Your friends who you can invite:

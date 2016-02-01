@@ -1,4 +1,4 @@
-$(document).ready ->
+$(document).bind 'page:change', ->
   unless $('.btn-add-friend').size() is 0
     $('.adding-users').show()
     $('p').hide()
