@@ -1,4 +1,4 @@
-$(document).ready ->
+$(document).bind 'page:change', ->
   $("#post_content").keypress (e) ->
     if e.which is 13
       event.preventDefault();    
